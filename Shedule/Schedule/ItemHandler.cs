@@ -8,7 +8,7 @@ namespace Schedule;
 
 public static class ItemHandler
 {
-    public static void HandleGDP(Item item, List<List<string>> list)
+    public static void HandlerGDP(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
         item.Subject = "Dyżur";
@@ -16,14 +16,14 @@ public static class ItemHandler
         item.Location = Properties.Settings.Default.depot;
     }
 
-    public static void HandleBlood(Item item, List<List<string>> list)
+    public static void HandlerBlood(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
-        item.Subject = "Krew";
+        item.Subject = "Krwiodawstwo";
         item.Location = "Centrum Krwiodawstwa i Krwiolecznictwa";
     }
 
-    public static void HandlePDC(Item item, List<List<string>> list)
+    public static void HandlerPDC(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
         string[] subject = list[0][1].Split('/');
@@ -31,7 +31,8 @@ public static class ItemHandler
         item.Description = "Skontaktuj się z dyspozytorem.";
     }
 
-    public static void HandleSWL1(Item item, List<List<string>> list)
+
+    public static void HandlerSWL1(Item item, List<List<string>> list)
     {
         item.SetTime(startTime: list[4][2], endTime: list[4][3]);
         item.SetSubject(line: list[4][0], brigade: list[4][1]);
@@ -39,7 +40,7 @@ public static class ItemHandler
         item.SetDescription(endPlace: list[1][2]);
     }
 
-    public static void HandleSWL2(Item item, List<List<string>> list)
+    public static void HandlerSWL2(Item item, List<List<string>> list)
     {
         item.SetTime(startTime: list[6][2], endTime: list[6][3]);
         item.SetSubject(line: list[6][0], brigade: list[6][1]);
@@ -47,7 +48,7 @@ public static class ItemHandler
         item.SetDescription(endPlace: list[2][2]);
     }
 
-    public static void HandleTwoLine(Item item, List<List<string>> list)
+    public static void HandlerTwoLine(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
         string[] subject = list[0][1].Split('/');
@@ -56,7 +57,7 @@ public static class ItemHandler
         item.SetDescription(endPlace: list[1][2]);
     }
 
-    public static void HandleOneLine(Item item, List<List<string>> list)
+    public static void HandlerOneLine(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
         string[] subject = list[0][1].Split('/');

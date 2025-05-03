@@ -20,7 +20,7 @@ public partial class MainForm : Form
             string month = (monthComboBox.SelectedIndex + 1).ToString();
             string? year = yearComboBox.SelectedItem.ToString();
             
-            Schedule.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
+            ItemGeneration.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
 
         }
         catch (Exception ex)
