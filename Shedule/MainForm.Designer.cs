@@ -71,6 +71,7 @@
             // 
             // monthComboBox
             // 
+            monthComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             monthComboBox.FormattingEnabled = true;
             monthComboBox.Items.AddRange(new object[] { "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień" });
             monthComboBox.Location = new Point(160, 12);
@@ -80,6 +81,7 @@
             // 
             // yearComboBox
             // 
+            yearComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             yearComboBox.FormattingEnabled = true;
             yearComboBox.Location = new Point(393, 12);
             yearComboBox.Name = "yearComboBox";
@@ -88,6 +90,7 @@
             // 
             // depotComboBox
             // 
+            depotComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             depotComboBox.FormattingEnabled = true;
             depotComboBox.Items.AddRange(new object[] { "R1", "R2", "R3", "R4", "R5" });
             depotComboBox.Location = new Point(626, 12);

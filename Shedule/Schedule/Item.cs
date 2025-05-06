@@ -7,63 +7,37 @@ using System.Threading.Tasks;
 
 namespace Schedule;
 
-public class Item : IDisposable
+public class Item
 {
-    private TimeOnly _startTime;
-    private TimeOnly _endTime;
-    private DateOnly _startDate;
-    private DateOnly _endDate;
-    private string _description;
-    private string _location;
-    private string _subject;
+
+    public TimeOnly StartTime { get; set; }  = TimeOnly.MinValue;
+    public TimeOnly EndTime { get; set; } = TimeOnly.MinValue;
+    public DateOnly StartDate { get; set; } = DateOnly.MinValue;
+    public DateOnly EndDate { get; set; } = DateOnly.MinValue;
+    public string Description { get; set; } = string.Empty;
+    public string Location { get; set; } = string.Empty;
+    public string Subject { get; set; } = string.Empty;
+    public bool AllDayEvent { get; } = false;
 
 
     public Item()
     {
-        _startTime = TimeOnly.MinValue;
-        _endTime = TimeOnly.MinValue;
-        _startDate = DateOnly.MinValue;
-        _endDate = DateOnly.MinValue;
-        _description = string.Empty;
-        _location = string.Empty;
-        _subject = string.Empty;
     }
 
+    private static int ExtractDayNumber(string input)
+    {
+        string pattern = @"\d+";
 
-    public TimeOnly StartTime
-    {
-        get { return _startTime; }
-        set { _startTime = value; }
-    }
-    public TimeOnly EndTime
-    {
-        get { return _endTime; }
-        set { _endTime = value; }
-    }
-    public DateOnly StartDate
-    {
-        get { return _startDate; }
-        set { _startDate = value; }
-    }
-    public DateOnly EndDate
-    {
-        get { return _endDate; }
-        set { _endDate = value; }
-    }
-    public string Description
-    {
-        get { return _description; }
-        set { _description = value; }
-    }
-    public string Location
-    {
-        get { return _location; }
-        set { _location = value; }
-    }
-    public string Subject
-    {
-        get { return _subject; }
-        set { _subject = value; }
+        Match match = Regex.Match(input, pattern);
+
+        if(match.Success)
+        {
+            return int.Parse(match.Value);
+        }
+        else
+        {
+            throw new ArgumentException("Nie znaleziono liczby w wprowadzonym tekście.");
+        }
     }
 
     public void SetTime(string time)
@@ -89,12 +63,14 @@ public class Item : IDisposable
     }
     public void SetDate(string day, string month, string year)
     {
+        int dayInt = ExtractDayNumber(day);
+
         if (StartTime == EndTime)
         {
             throw new InvalidOperationException("Godzina początkowa i końcowa nie mogą być takie same.");
         }
 
-        if (!int.TryParse(day, out int dayInt) || !int.TryParse(month, out int monthInt) || !int.TryParse(year, out int yearInt))
+        if (!int.TryParse(month, out int monthInt) || !int.TryParse(year, out int yearInt))
         {
             throw new ArgumentException("Błędne parametry daty");
         }
@@ -132,11 +108,5 @@ public class Item : IDisposable
     public void SetSubject(string line, string brigade)
     {
         Subject = $"{line}/{brigade}";
-    }
-
-
-    public void Dispose()
-    {
-        GC.SuppressFinalize(this);
     }
 }

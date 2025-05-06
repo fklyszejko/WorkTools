@@ -72,8 +72,8 @@ public class ScheduleItemTests
     {
         Item item = new();
 
-        item.SetSubject("Dy¿ur");
+        item.SetSubject("GDP");
 
-        Assert.Equal("Dy¿ur", item.Subject);
+        Assert.Equal("GDP", item.Subject);
     }
 }

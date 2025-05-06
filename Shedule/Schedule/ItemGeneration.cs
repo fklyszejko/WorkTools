@@ -7,7 +7,7 @@ public static class ItemGeneration
 {
     public static List<Item> GenerateItemFromSchedule(string text, string month, string year)
     {
-        List<List<string>>? input = DataConversion.ConvertTextToDataList(text);
+        List<List<string>> input = DataConversion.ConvertTextToDataList(text) ?? throw new ArgumentException("Nieprawidłowe dane wejściowe.");
         List<Item> items = new();
 
         while (input.Count > 0)
@@ -20,16 +20,23 @@ public static class ItemGeneration
 
     private static void ProcessItemCondition(List<List<string>> input, List<Item> items, string month, string year)
     {
-        string time = input[0][2];
-        string itemType = input[0][3];
+        if (input[0].Count < 3)
+        {
+            throw new ArgumentException("Dane wejściowe są nieprawidłowe lub niekompletne.");
+        }
 
-        Item item = new ();
+        string time = input[0][2];
+        string itemType = input[0][1];
 
         if (string.IsNullOrEmpty(time))
         {
             input.RemoveAt(0);
+            return;
         }
-        else if (itemType.Contains("GDP"))
+        
+        Item item = new();
+        
+        if (itemType.Contains("GDP"))
         {
             HandlerGDP(item, input);
             input.RemoveAt(0);

@@ -17,10 +17,19 @@ public partial class MainForm : Form
     {
         try
         {
+
+            if (monthComboBox.SelectedIndex < 0 || yearComboBox.SelectedItem is not string selectedYear)
+            {
+                MessageBox.Show("Proszê wybraæ miesi¹c i rok");
+                return;
+            }
+
             string month = (monthComboBox.SelectedIndex + 1).ToString();
-            string? year = yearComboBox.SelectedItem.ToString();
-            
-            ItemGeneration.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
+            string year = selectedYear;
+
+            List<Item> items = ItemGeneration.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
+            string csv = FileOperation.FormatCSV(items);
+            FileOperation.SaveFile(csv);
 
         }
         catch (Exception ex)
