@@ -28,7 +28,7 @@ public static class ItemHandler
         item.SetTime(time: list[0][2]);
         string[] subject = list[0][1].Split('/');
         item.SetSubject(line: "Podciąganie", subject[1].Trim());
-        item.Description = "Skontaktuj się z dyspozytorem.";
+        item.Description = "Skontaktuj się z dyspozytorem!";
     }
 
 

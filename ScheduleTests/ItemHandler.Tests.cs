@@ -46,7 +46,7 @@ public class ScheduleItemHandlerTests
         Assert.Equal(TimeOnly.Parse("12:00"), item.StartTime);
         Assert.Equal(TimeOnly.Parse("14:00"), item.EndTime);
         Assert.Equal("Podciąganie/WIA", item.Subject);
-        Assert.Equal("Skontaktuj się z dyspozytorem.", item.Description);
+        Assert.Equal("Skontaktuj się z dyspozytorem!", item.Description);
     }
 
     [Fact]

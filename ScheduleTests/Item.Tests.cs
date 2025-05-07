@@ -21,7 +21,7 @@ public class ScheduleItemTests
         Item item = new();
 
         item.SetTime("00:21-12:20");
-        item.SetDate("12", "06", "2025");
+        item.SetDate("12", 06, 2025);
 
         Assert.Equal(new DateOnly(2025, 06, 12), item.StartDate);
     }
@@ -32,7 +32,7 @@ public class ScheduleItemTests
         Item item = new();
 
         item.SetTime("16:21-01:00");
-        item.SetDate("12", "06", "2025");
+        item.SetDate("12", 06, 2025);
 
         Assert.Equal(new DateOnly(2025, 06, 13), item.EndDate);
     }
@@ -52,9 +52,9 @@ public class ScheduleItemTests
     {
         Item item = new();
         
-        item.SetLocation("R2(P) 00", "GOC£AWEK 05");
+        item.SetLocation("R7(GG) 00", "GOC£AWEK 95");
 
-        Assert.Equal("R2 -> GOC£AWEK 05",item.Location);
+        Assert.Equal("R7 -> GOC£AWEK 95",item.Location);
     }
 
     [Fact]
