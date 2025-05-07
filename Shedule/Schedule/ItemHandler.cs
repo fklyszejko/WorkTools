@@ -51,8 +51,7 @@ public static class ItemHandler
     public static void HandlerTwoLine(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
-        string[] subject = list[0][1].Split('/');
-        item.SetSubject(line: subject[0].Trim(), brigade: subject[1].Trim());
+        item.SetSubject(list[0][1]);
         item.SetLocation(startPlace: list[1][0], direction: list[1][1]);
         item.SetDescription(endPlace: list[1][2]);
     }
@@ -60,7 +59,6 @@ public static class ItemHandler
     public static void HandlerOneLine(Item item, List<List<string>> list)
     {
         item.SetTime(time: list[0][2]);
-        string[] subject = list[0][1].Split('/');
-        item.SetSubject(subject: subject[0].Trim());
+        item.SetSubject(list[0][1]);
     }
 }

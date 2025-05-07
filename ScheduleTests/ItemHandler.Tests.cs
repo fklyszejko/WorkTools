@@ -81,4 +81,6 @@ public class ScheduleItemHandlerTests
         Assert.Equal("Zakończenie: RONDO WASZYNGTONA 05", item.Description);
     }
 
+
+
 }

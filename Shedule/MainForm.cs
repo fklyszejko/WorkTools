@@ -18,18 +18,21 @@ public partial class MainForm : Form
         try
         {
 
-            if (monthComboBox.SelectedIndex < 0 || yearComboBox.SelectedItem is not string selectedYear)
+            if (monthComboBox.SelectedIndex < 0 || yearComboBox.SelectedIndex < 0)
             {
                 MessageBox.Show("Proszê wybraæ miesi¹c i rok");
                 return;
             }
 
-            string month = (monthComboBox.SelectedIndex + 1).ToString();
-            string year = selectedYear;
+            int month = monthComboBox.SelectedIndex + 1;
+            int.TryParse(yearComboBox.SelectedItem.ToString(), out int year);
 
             List<Item> items = ItemGeneration.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
             string csv = FileOperation.FormatCSV(items);
-            FileOperation.SaveFile(csv);
+            if (FileOperation.SaveFile(csv,month,year))
+            {
+                MessageBox.Show("Plik CSV zosta³ zapisany pomyœlnie");
+            }
 
         }
         catch (Exception ex)

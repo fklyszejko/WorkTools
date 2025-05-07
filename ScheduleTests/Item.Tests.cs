@@ -4,8 +4,8 @@ namespace ScheduleTests;
 
 public class ScheduleItemTests
 {
-    [Fact(DisplayName ="Set time from text")]
-    public void Time()
+    [Fact]
+    public void SetStartAndEndTimeFromText()
     {
         Item item = new();
 
@@ -15,8 +15,8 @@ public class ScheduleItemTests
         Assert.Equal(new TimeOnly(12,20), item.EndTime);
     }
 
-    [Fact(DisplayName ="Set date from text")]
-    public void Date()
+    [Fact]
+    public void SetStartDateFromText()
     {
         Item item = new();
 
@@ -26,8 +26,8 @@ public class ScheduleItemTests
         Assert.Equal(new DateOnly(2025, 06, 12), item.StartDate);
     }
 
-    [Fact(DisplayName="Set date and add 1 day")]
-    public void DateAddDay()
+    [Fact]
+    public void SetEndDateNextDay()
     {
         Item item = new();
 
@@ -37,8 +37,8 @@ public class ScheduleItemTests
         Assert.Equal(new DateOnly(2025, 06, 13), item.EndDate);
     }
 
-    [Fact(DisplayName = "Set description when endPlace starts with 'R' and ends with '99'")]
-    public void Description()
+    [Fact]
+    public void SetDescriptionEndPlaceDepot()
     {
         Item item = new();
 
@@ -47,8 +47,8 @@ public class ScheduleItemTests
         Assert.Equal("Zakoñczenie: R2", item.Description);
     }
 
-    [Fact(DisplayName = "Set location")]
-    public void Location()
+    [Fact]
+    public void SetLocationStartPlaceDepot()
     {
         Item item = new();
         
@@ -57,8 +57,8 @@ public class ScheduleItemTests
         Assert.Equal("R2 -> GOC£AWEK 05",item.Location);
     }
 
-    [Fact(DisplayName = "Set subject from two variables")]
-    public void Subject()
+    [Fact]
+    public void SetSubjectTwoString()
     {
         Item item = new();
 
@@ -67,13 +67,29 @@ public class ScheduleItemTests
         Assert.Equal("12/2", item.Subject);
     }
 
-    [Fact(DisplayName = "Set subject")]
-    public void Subject1()
+    [Fact]
+    public void SetSubjectSimpleString()
     {
         Item item = new();
 
         item.SetSubject("GDP");
 
         Assert.Equal("GDP", item.Subject);
+    }
+
+    [Fact]
+    public void SetSubjectExtendedStringWithLetter()
+    {
+        Item item = new();
+        item.SetSubject("7/027B/4");
+        Assert.Equal("7/027B", item.Subject);
+    }
+
+    [Fact]
+    public void SetSubjectExtendedStringStartWithLetter()
+    {
+        Item item = new();
+        item.SetSubject("C7/027B/4");
+        Assert.Equal("C7/027B", item.Subject);
     }
 }

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Schedule.ItemValidator;
 
 namespace Schedule;
 
 public class Item
 {
 
-    public TimeOnly StartTime { get; set; }  = TimeOnly.MinValue;
+    public TimeOnly StartTime { get; set; } = TimeOnly.MinValue;
     public TimeOnly EndTime { get; set; } = TimeOnly.MinValue;
     public DateOnly StartDate { get; set; } = DateOnly.MinValue;
     public DateOnly EndDate { get; set; } = DateOnly.MinValue;
@@ -30,21 +31,19 @@ public class Item
 
         Match match = Regex.Match(input, pattern);
 
-        if(match.Success)
+        if (match.Success)
         {
             return int.Parse(match.Value);
         }
         else
         {
-            throw new ArgumentException("Nie znaleziono liczby w wprowadzonym tekście.");
+            throw new ArgumentException($"Nie znaleziono liczby w wprowadzonym tekście '{input}'");
         }
     }
 
     public void SetTime(string time)
     {
-        string pattern = @"^\d{1,2}:\d{1,2}-\d{1,2}:\d{1,2}$";
-
-        if (Regex.IsMatch(time, pattern))
+        if (IsValidTime(time))
         {
             string[] times = time.Split('-');
             StartTime = TimeOnly.Parse(times[0]);
@@ -52,7 +51,7 @@ public class Item
         }
         else
         {
-            return;
+            throw new ArgumentException($"Niepoprawny format czasu: {time}. Oczekiwany format: HH:mm-HH:mm");
         }
     }
 
@@ -61,29 +60,20 @@ public class Item
         StartTime = TimeOnly.Parse(startTime);
         EndTime = TimeOnly.Parse(endTime);
     }
-    public void SetDate(string day, string month, string year)
+    public void SetDate(string day, int month, int year)
     {
         int dayInt = ExtractDayNumber(day);
 
-        if (StartTime == EndTime)
-        {
-            throw new InvalidOperationException("Godzina początkowa i końcowa nie mogą być takie same.");
-        }
+        ValidTimesAreNotEqual(StartTime, EndTime);
 
-        if (!int.TryParse(month, out int monthInt) || !int.TryParse(year, out int yearInt))
-        {
-            throw new ArgumentException("Błędne parametry daty");
-        }
-
-
-        StartDate = new(yearInt, monthInt, dayInt);
+        StartDate = new(year, month, dayInt);
 
         EndDate = (StartTime > EndTime) ? StartDate.AddDays(1) : StartDate;
 
     }
     public void SetDescription(string endPlace)
     {
-        if (endPlace.StartsWith("R") && endPlace.EndsWith("99"))
+        if (IsEndPlaceDepotName(endPlace))
         {
             endPlace = endPlace[..2];
         }
@@ -92,7 +82,7 @@ public class Item
     }
     public void SetLocation(string startPlace, string direction)
     {
-        if (startPlace.StartsWith("R") && startPlace.EndsWith("00"))
+        if (IsStartPlaceDepotName(startPlace))
         {
             startPlace = startPlace[..2];
         }
@@ -102,7 +92,19 @@ public class Item
 
     public void SetSubject(string subject)
     {
-        Subject = subject;
+        string[] parts = subject.Split('/');
+
+        if (parts.Length > 1)
+        {
+            string line = parts[0].Trim();
+            string brigade = parts[1].Trim();
+
+            SetSubject(line, brigade);
+        }
+        else
+        {
+            Subject = subject.Trim();
+        }
     }
 
     public void SetSubject(string line, string brigade)
