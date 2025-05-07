@@ -1,4 +1,4 @@
-# Schedule – Konwerter harmonogramów do kalendarza Google
+# Schedule - Narzędzie do konwersji grafiku pracy do formatu CSV
 
 ## O projekcie
 **Schedule** to aplikacja, którą stworzyłem w C# na platformie .NET 6, korzystając z Windows Forms. Projekt powstał z potrzeby automatyzacji powtarzalnych zadań związanych z zarządzaniem harmonogramami i ich konwersją do formatu CSV, który można łatwo zaimportować do Google Calendar.
