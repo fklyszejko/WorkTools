@@ -5,6 +5,11 @@ namespace Schedule;
 
 public static class ItemGeneration
 {
+    private const int DateIndex = 0;
+    private const int ItemTypeIndex = 1;
+    private const int TimeIndex = 2;
+    private const int Row = 0;
+
     public static List<Item> GenerateItemFromSchedule(string text, int month, int year)
     {
         List<List<string>> input = DataConversion.ConvertTextToDataList(text);
@@ -20,14 +25,14 @@ public static class ItemGeneration
 
     private static void ProcessItemCondition(List<List<string>> input, List<Item> items, int month, int year)
     {
-        if (input[0].Count <= 2)
+        if (input[Row].Count <= 2)
         {
             input.RemoveAt(0);
             return;
         }
 
-        string time = input[0][2];
-        string itemType = input[0][1];
+        string time = input[Row][TimeIndex];
+        string itemType = input[Row][ItemTypeIndex];
         int lineToRemove = 1;
 
         if (string.IsNullOrEmpty(time))
@@ -70,7 +75,7 @@ public static class ItemGeneration
             HandlerOneLine(item, input);
         }
 
-        item.SetDate(input[0][0], month, year);
+        item.SetDate(input[Row][DateIndex], month, year);
         input.RemoveRange(0, lineToRemove);
         items.Add(item);
     }
