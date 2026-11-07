@@ -20,7 +20,7 @@ public partial class MainForm : Form
 
             if (monthComboBox.SelectedIndex < 0 || yearComboBox.SelectedIndex < 0)
             {
-                MessageBox.Show("Proszê wybraæ miesi¹c i rok");
+                MessageBox.Show("ProszÄ™ wybraÄ‡ miesiÄ…c i rok");
                 return;
             }
 
@@ -31,7 +31,7 @@ public partial class MainForm : Form
             string csv = FileOperation.FormatCSV(items);
             if (FileOperation.SaveFile(csv,month,year))
             {
-                MessageBox.Show("Plik CSV zosta³ zapisany pomyœlnie");
+                MessageBox.Show("Plik CSV zostaÅ‚ zapisany pomyÅ›lnie");
             }
 
         }

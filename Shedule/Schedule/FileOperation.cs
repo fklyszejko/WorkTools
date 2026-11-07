@@ -41,6 +41,7 @@ public static class FileOperation
     public static bool SaveFile(string text,int month, int year)
     {
         string fileName = FileName(month, year);
+        fileName = GetUniqueFileName(fileName);
         string header = "Start date,Subject,Start Time,End Date,End Time,Description,Location,All Day Event";
         
         using (StreamWriter output = File.CreateText(fileName))
@@ -52,6 +53,32 @@ public static class FileOperation
         return true;
     }
 
+    private static string GetUniqueFileName(string fileName)
+    {
+            if (!File.Exists(fileName))
+            {
+                return fileName;
+            }
+
+            string directory = Path.GetDirectoryName(fileName) ?? string.Empty;
+            string name = Path.GetFileNameWithoutExtension(fileName);
+            string extension = Path.GetExtension(fileName);
+
+            int number = 1;
+            string newFileName;
+
+            do
+            {
+                newFileName = Path.Combine(
+                    directory,
+                    $"{name}_{number}{extension}");
+
+                number++;
+            }
+            while (File.Exists(newFileName));
+
+            return newFileName;
+    }
     private static string FileName(int month, int year, string? format = "csv")
     {
         if(month < 1 || month > 12)
