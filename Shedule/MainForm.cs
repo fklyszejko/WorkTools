@@ -25,7 +25,7 @@ public partial class MainForm : Form
             }
 
             int month = monthComboBox.SelectedIndex + 1;
-            int.TryParse(yearComboBox.SelectedItem.ToString(), out int year);
+            int.TryParse(yearComboBox.SelectedItem!.ToString(), out int year);
 
             List<Item> items = ItemGeneration.GenerateItemFromSchedule(inputRichTextBox.Text, month, year);
             string csv = FileOperation.FormatCSV(items);
@@ -58,7 +58,7 @@ public partial class MainForm : Form
 
     private void DepotComboBox_SelectedValueChanged(object sender, EventArgs e)
     {
-        Properties.Settings.Default.depot = depotComboBox.SelectedItem.ToString();
+        Properties.Settings.Default.depot = depotComboBox.SelectedItem!.ToString();
         Properties.Settings.Default.Save();
     }
 }
